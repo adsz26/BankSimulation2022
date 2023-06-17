@@ -1,0 +1,429 @@
+﻿<Window x:Class="BankSimulation.CustomerRegistrationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BankSimulation"
+        mc:Ignorable="d"
+        Title="Registration" Height="500" Width="900" WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="#181735">
+
+    <Window.Resources>
+        <Style x:Key="ErrorTextStyle" TargetType="TextBox">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+
+
+    <!-- MAIN GRID START -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!--MAIN MENU START-->
+        <Grid Background="#0f0f2d" 
+              Grid.ColumnSpan="2"
+              MouseDown="Grid_MouseDown">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+
+            <TextBlock Text="Regisztráció"
+                       Foreground="LightGray" 
+                       Grid.Column="0" Grid.ColumnSpan="2"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                       FontFamily="Fonts/#Dosis" FontSize="17" FontWeight="Bold"/>
+
+
+            <!--SEPERATE GRID FOR THE CLOSE BUTTON START-->
+            <Grid Grid.Row="0" Grid.Column="13">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Content="✖"
+                        Foreground="White"
+                        HorizontalAlignment="Center"
+                        FontSize="10"
+                        FontWeight="Medium"
+                        Grid.Column="1"
+                        Click="AppClose_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                            <Setter Property="Background" Value="#181735"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="red"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="22" Height="22"
+                                    CornerRadius="5"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+            <!--SEPERATE GRID FOR THE CLOSE BUTTON END-->
+
+
+        </Grid>
+        <!--MAIN MENU END-->
+
+        <!--LEFT SIDE WINDOW START-->
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="30 0 0 0 "
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <StackPanel>
+
+
+                <Label Content="Regisztráció" 
+                       Foreground="White" 
+                       FontWeight="Bold" 
+                       FontSize="30" 
+                       Margin="0 0 0 5"/>
+
+                <!--INPUTS START-->
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,0,0,5">
+                    <Label Content="Név:"
+                           MinWidth="120"
+                           Foreground="White" 
+                           FontSize="17"/>
+                    <TextBox Name="TextBoxCustomerName" 
+                             MinWidth="200"
+                             MaxWidth="200"
+                             FontSize="17"
+                             Style="{StaticResource ErrorTextStyle}" 
+                             Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                             />
+                    <TextBlock Margin="10 0 0 0"
+                               MinWidth="400"
+                               MaxWidth="400"
+                               FontSize="14"
+                               Foreground="Red" FontWeight="Bold" Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TextBoxCustomerName}"
+                               />
+                </StackPanel>
+
+                
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,0,0,5">
+                    <Label Content="Jelszó:" 
+                           MinWidth="120" 
+                           Foreground="White" 
+                           FontSize="17"/>
+                    <PasswordBox Name="PasswordBoxCustomerPassword"
+                                 MinWidth="200"
+                                 MaxWidth="200"
+                                 FontSize="17"
+                                 />
+                    <TextBlock Margin="10 0 0 0"
+                               MinWidth="400"
+                               MaxWidth="400"
+                               FontSize="14"
+                               Foreground="Red" FontWeight="Bold" Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=PasswordBoxCustomerPassword}"
+                               />
+                </StackPanel>
+
+                
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,0,0,5">
+                    <Label Content="Számlaszám:"
+                           MinWidth="120" 
+                           Foreground="White" 
+                           FontSize="17"/>
+                    <TextBox Name="TextBoxCustomerAccountNumber"
+                             MaxLength="17"
+                             PreviewTextInput="OnlyInteger_PreviewTextInput"
+                             PreviewKeyDown="TextBoxCustomerAccountNumber_PreviewKeyDown"
+                             MinWidth="200"
+                             MaxWidth="200"
+                             FontSize="17"
+                             Style="{StaticResource ErrorTextStyle}" 
+                             Text="{Binding AccountNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                             />
+                    <TextBlock Margin="10 0 0 0"
+                               MinWidth="400"
+                               MaxWidth="400"
+                               FontSize="14"
+                               Foreground="Red" FontWeight="Bold" Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TextBoxCustomerAccountNumber}"
+                               />
+                </StackPanel>
+
+                
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,0,0,5">
+                    <Label Content="  Deviza:" 
+                           MinWidth="120" 
+                           Foreground="White" 
+                           FontSize="17"/>
+                    <!--<TextBox Name="TextBoxSzamlaszamDeviza" 
+                             MinWidth="200"
+                             FontSize="17"/>-->
+                    <ComboBox Name="ComboBoxSzamlaszamDeviza"
+                              MinWidth="200"
+                              MaxWidth="200"
+                              FontSize="17">
+                        <ComboBoxItem IsSelected="True" Content="HUF"/>
+                        <ComboBoxItem Content="EUR"/>
+                        <ComboBoxItem Content="USD"/>
+                        <ComboBoxItem Content="GBP"/>
+                    </ComboBox>
+                    
+                </StackPanel>
+
+                
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,0,0,5">
+                    <Label Content="  Egyenleg:" 
+                           MinWidth="120" 
+                           Foreground="White" 
+                           FontSize="17"/>
+                    <TextBox Name="TextBoxCustomerAccountNumberBalance"
+                             PreviewTextInput="OnlyInteger_PreviewTextInput"
+                             PreviewKeyDown="Space_PreviewKeyDown"
+                             MinWidth="200"
+                             MaxWidth="200"
+                             FontSize="17"
+                             Style="{StaticResource ErrorTextStyle}" 
+                             Text="{Binding AccountNumberBalance, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                             />
+                    <TextBlock Margin="10 0 0 0"
+                               MinWidth="400"
+                               MaxWidth="400"
+                               FontSize="14"
+                               Foreground="Red" FontWeight="Bold" Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TextBoxCustomerAccountNumberBalance}"
+                               />
+                </StackPanel>
+
+                
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,0,0,5">
+                    <Label Content="Hitelszámla:" 
+                           MinWidth="120" 
+                           Foreground="White" 
+                           FontSize="17"/>
+                    <TextBox Name="TextBoxCustomerCreditAccount"
+                             MaxLength="17"
+                             PreviewTextInput="OnlyInteger_PreviewTextInput"
+                             PreviewKeyDown="TextBoxCustomerCreditAccountNumber_PreviewKeyDown"
+                             MinWidth="200"
+                             MaxWidth="200"
+                             FontSize="17"
+                             Style="{StaticResource ErrorTextStyle}" 
+                             Text="{Binding CreditAccount, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                             />
+                    <TextBlock Margin="10 0 0 0"
+                               MinWidth="400"
+                               MaxWidth="400"
+                               FontSize="14"
+                               Foreground="Red" FontWeight="Bold" Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TextBoxCustomerCreditAccount}"
+                               />
+                </StackPanel>
+
+                
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,0,0,5">
+                    <Label Content="  Deviza:" 
+                           MinWidth="120"
+                           Foreground="White" 
+                           FontSize="17"/>
+                    <ComboBox Name="ComboBoxCustomerCreditAccountCurrency"
+                              MinWidth="200"
+                              MaxWidth="200"
+                              FontSize="17">
+                        <ComboBoxItem IsSelected="True" Content="HUF"/>
+                        <ComboBoxItem Content="EUR"/>
+                        <ComboBoxItem Content="USD"/>
+                        <ComboBoxItem Content="GBP"/>
+                    </ComboBox>
+                </StackPanel>
+
+                
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,0,0,5">
+                    <Label Content="  Egyenleg:" 
+                           MinWidth="120" 
+                           Foreground="White" 
+                           FontSize="17"/>
+                    <TextBox Name="TextBoxCustomerCreditAccountBalance"
+                             PreviewTextInput="OnlyInteger_PreviewTextInput"
+                             PreviewKeyDown="Space_PreviewKeyDown"
+                             MinWidth="200"
+                             MaxWidth="200"
+                             FontSize="17"
+                             Style="{StaticResource ErrorTextStyle}" 
+                             Text="{Binding CreditAccountBalance, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                             />
+                    <TextBlock Margin="10 0 0 0"
+                               MinWidth="400"
+                               MaxWidth="400"
+                               FontSize="14"
+                               Foreground="Red" FontWeight="Bold" Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TextBoxCustomerCreditAccountBalance}"
+                               />
+                </StackPanel>
+
+                
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,0,0,20">
+                    <Label Content="Bank:" 
+                           MinWidth="120" 
+                           Foreground="White" 
+                           FontSize="17"/>
+                    <ComboBox Name="ComboBoxBankId"
+                              MinWidth="200"
+                              MaxWidth="200"
+                              FontSize="17">
+                    </ComboBox>
+                    <TextBlock Margin="10 0 0 0"
+                               MinWidth="300" 
+                               FontSize="17"
+                               Text="" />
+                </StackPanel>
+                <!--INPUTS END-->
+
+
+
+
+
+
+                <!--BUTTONS START-->
+                <StackPanel Orientation="Horizontal">
+
+
+                    <Button Name="btnRegistration"
+                        Content="Regisztráció"
+                        Click="BtnRegistration_Click"
+                        Foreground="White"
+                        FontSize="20"
+                        FontWeight="Medium"
+                        Margin="0,0,20,0">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                                <Setter Property="Background" Value="#2871cc"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#003f9a"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="150" Height="30"
+                                    CornerRadius="8"
+                                    Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+
+
+                    <Button Name="btnRegistrationCancel"
+                        Content="Mégse"
+                        Click="BtnRegistrationCancel_Click"
+                        Foreground="White"
+                        FontSize="20"
+                        FontWeight="Medium"
+                        Margin="0,0,10,0">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                                <Setter Property="Background" Value="#2871cc"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#003f9a"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="150" Height="30"
+                                    CornerRadius="8"
+                                    Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    
+                </StackPanel>
+                <!--BUTTONS END-->
+            </StackPanel>
+
+
+        </StackPanel>
+        <!--LEFT SIDE WINDOW END-->
+
+        <!--RIGHT SIDE WINDOW START-->
+        <StackPanel Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="50">
+
+
+            <Label Name="LabelErrors"
+                   Content="Hibák:" 
+                   Foreground="White" FontWeight="Bold" FontSize="20" 
+                   Visibility="Hidden"
+                   Margin="10 0 0 5"/>
+            <ListBox Name="ListBoxErrors"
+                     Foreground="Red"
+                     Visibility="Hidden"
+                     Margin="10 0 0 5"/>
+
+
+        </StackPanel>
+        <!--RIGHT SIDE WINDOW END-->
+
+
+    </Grid>
+    <!--MAIN GRID END-->
+
+
+</Window>

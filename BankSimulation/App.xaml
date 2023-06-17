@@ -1,0 +1,11 @@
+﻿<Application x:Class="BankSimulation.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:BankSimulation"
+             StartupUri="MainWindow.xaml">
+             <!-- StartupUri -> itt állíthatjuk be, hogy melyik ablakot nyissa meg alapértelmezettként. -->
+             <!-- Így ha tesztelni szeretnénk valamelyik ablak működését, akkor nem muszáj összekapcsolni más ablakokkal pl. gombok segítségével, elég itt átírni. -->
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>

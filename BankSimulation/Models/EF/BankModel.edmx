@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BankDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bank">
+          <Key>
+            <PropertyRef Name="BankID" />
+          </Key>
+          <Property Name="BankID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BankName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BankPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BankAccountMoneyAccountNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BankAccountMoneyCurrency" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BankAccountMoneyBalance" Type="float" Nullable="false" />
+          <Property Name="CentralBankMoneyAccountNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CentralBankMoneyCurrency" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CentralBankMoneyBalance" Type="float" Nullable="false" />
+          <Property Name="NumberOfCustomers" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BankTransaction">
+          <Key>
+            <PropertyRef Name="BankTransactionID" />
+          </Key>
+          <Property Name="BankTransactionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BankID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="BankTransactionType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BankTransactionAmount" Type="float" Nullable="false" />
+          <Property Name="BankTransactionCurrency" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerAccountNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerAccountNumberCurrency" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerAccountNumberBalance" Type="float" Nullable="false" />
+          <Property Name="CustomerCreditAccount" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerCreditAccountCurrency" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerCreditAccountBalance" Type="float" Nullable="false" />
+          <Property Name="BankID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CustomerTransaction">
+          <Key>
+            <PropertyRef Name="CustomerTransactionID" />
+          </Key>
+          <Property Name="CustomerTransactionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="CustomerTransactionType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerTransactionAmount" Type="float" Nullable="false" />
+          <Property Name="CustomerTransactionCurrency" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BeneficiaryName" Type="nvarchar" MaxLength="50" />
+          <Property Name="BeneficiaryAccountNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="LoanFromBank" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="BankFK">
+          <End Role="Bank" Type="Self.Bank" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bank">
+              <PropertyRef Name="BankID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="BankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BankDBModelStoreContainer">
+          <EntitySet Name="Bank" EntityType="Self.Bank" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BankTransaction" EntityType="Self.BankTransaction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerTransaction" EntityType="Self.CustomerTransaction" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="BankFK" Association="Self.BankFK">
+            <End Role="Bank" EntitySet="Bank" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BankDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bank">
+          <Key>
+            <PropertyRef Name="BankID" />
+          </Key>
+          <Property Name="BankID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BankName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BankPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BankAccountMoneyAccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BankAccountMoneyCurrency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BankAccountMoneyBalance" Type="Double" Nullable="false" />
+          <Property Name="CentralBankMoneyAccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CentralBankMoneyCurrency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CentralBankMoneyBalance" Type="Double" Nullable="false" />
+          <Property Name="NumberOfCustomers" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customers" Relationship="Self.BankFK" FromRole="Bank" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="BankTransaction">
+          <Key>
+            <PropertyRef Name="BankTransactionID" />
+          </Key>
+          <Property Name="BankTransactionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BankID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="BankTransactionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BankTransactionAmount" Type="Double" Nullable="false" />
+          <Property Name="BankTransactionCurrency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerAccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerAccountNumberCurrency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerAccountNumberBalance" Type="Double" Nullable="false" />
+          <Property Name="CustomerCreditAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerCreditAccountCurrency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerCreditAccountBalance" Type="Double" Nullable="false" />
+          <Property Name="BankID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bank" Relationship="Self.BankFK" FromRole="Customer" ToRole="Bank" />
+        </EntityType>
+        <EntityType Name="CustomerTransaction">
+          <Key>
+            <PropertyRef Name="CustomerTransactionID" />
+          </Key>
+          <Property Name="CustomerTransactionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CustomerTransactionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerTransactionAmount" Type="Double" Nullable="false" />
+          <Property Name="CustomerTransactionCurrency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BeneficiaryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BeneficiaryAccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LoanFromBank" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="BankFK">
+          <End Role="Bank" Type="Self.Bank" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bank">
+              <PropertyRef Name="BankID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="BankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BankDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Banks" EntityType="Self.Bank" />
+          <EntitySet Name="BankTransactions" EntityType="Self.BankTransaction" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="CustomerTransactions" EntityType="Self.CustomerTransaction" />
+          <AssociationSet Name="BankFK" Association="Self.BankFK">
+            <End Role="Bank" EntitySet="Banks" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BankDBModelStoreContainer" CdmEntityContainer="BankDBEntities">
+          <EntitySetMapping Name="Banks">
+            <EntityTypeMapping TypeName="BankDBModel.Bank">
+              <MappingFragment StoreEntitySet="Bank">
+                <ScalarProperty Name="BankID" ColumnName="BankID" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="BankPassword" ColumnName="BankPassword" />
+                <ScalarProperty Name="BankAccountMoneyAccountNumber" ColumnName="BankAccountMoneyAccountNumber" />
+                <ScalarProperty Name="BankAccountMoneyCurrency" ColumnName="BankAccountMoneyCurrency" />
+                <ScalarProperty Name="BankAccountMoneyBalance" ColumnName="BankAccountMoneyBalance" />
+                <ScalarProperty Name="CentralBankMoneyAccountNumber" ColumnName="CentralBankMoneyAccountNumber" />
+                <ScalarProperty Name="CentralBankMoneyCurrency" ColumnName="CentralBankMoneyCurrency" />
+                <ScalarProperty Name="CentralBankMoneyBalance" ColumnName="CentralBankMoneyBalance" />
+                <ScalarProperty Name="NumberOfCustomers" ColumnName="NumberOfCustomers" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BankTransactions">
+            <EntityTypeMapping TypeName="BankDBModel.BankTransaction">
+              <MappingFragment StoreEntitySet="BankTransaction">
+                <ScalarProperty Name="BankTransactionID" ColumnName="BankTransactionID" />
+                <ScalarProperty Name="BankID" ColumnName="BankID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="BankTransactionType" ColumnName="BankTransactionType" />
+                <ScalarProperty Name="BankTransactionAmount" ColumnName="BankTransactionAmount" />
+                <ScalarProperty Name="BankTransactionCurrency" ColumnName="BankTransactionCurrency" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="BankDBModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerPassword" ColumnName="CustomerPassword" />
+                <ScalarProperty Name="CustomerAccountNumber" ColumnName="CustomerAccountNumber" />
+                <ScalarProperty Name="CustomerAccountNumberCurrency" ColumnName="CustomerAccountNumberCurrency" />
+                <ScalarProperty Name="CustomerAccountNumberBalance" ColumnName="CustomerAccountNumberBalance" />
+                <ScalarProperty Name="CustomerCreditAccount" ColumnName="CustomerCreditAccount" />
+                <ScalarProperty Name="CustomerCreditAccountCurrency" ColumnName="CustomerCreditAccountCurrency" />
+                <ScalarProperty Name="CustomerCreditAccountBalance" ColumnName="CustomerCreditAccountBalance" />
+                <ScalarProperty Name="BankID" ColumnName="BankID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerTransactions">
+            <EntityTypeMapping TypeName="BankDBModel.CustomerTransaction">
+              <MappingFragment StoreEntitySet="CustomerTransaction">
+                <ScalarProperty Name="CustomerTransactionID" ColumnName="CustomerTransactionID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="CustomerTransactionType" ColumnName="CustomerTransactionType" />
+                <ScalarProperty Name="CustomerTransactionAmount" ColumnName="CustomerTransactionAmount" />
+                <ScalarProperty Name="CustomerTransactionCurrency" ColumnName="CustomerTransactionCurrency" />
+                <ScalarProperty Name="BeneficiaryName" ColumnName="BeneficiaryName" />
+                <ScalarProperty Name="BeneficiaryAccountNumber" ColumnName="BeneficiaryAccountNumber" />
+                <ScalarProperty Name="LoanFromBank" ColumnName="LoanFromBank" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,288 @@
+﻿<Window x:Class="BankSimulation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BankSimulation"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="900" WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="#181735">
+
+    <!--MAIN GRID START -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!--MAIN MENU START-->
+        <Grid Background="#0f0f2d" 
+              Grid.ColumnSpan="2"
+              MouseDown="Grid_MouseDown">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+
+            <TextBlock Text="Főoldal"
+                       Foreground="LightGray"
+                       Grid.Column="0" Grid.ColumnSpan="2"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                       FontSize="17" FontWeight="Bold"/>
+
+
+            <!--SEPERATE GRID FOR THE CLOSE BUTTON START-->
+            <Grid Grid.Row="0" Grid.Column="13">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Content="✖"
+                        Foreground="White"
+                        HorizontalAlignment="Center"
+                        FontSize="10"
+                        FontWeight="Medium"
+                        Grid.Column="1"
+                        Click="AppClose_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                            <Setter Property="Background" Value="#181735"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="red"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="22" Height="22"
+                                    CornerRadius="5"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+            <!--SEPERATE GRID FOR THE CLOSE BUTTON END-->
+
+
+
+        </Grid>
+        <!--MAIN MENU END-->
+
+        <!--LEFT SIDE WINDOW START-->
+        <StackPanel Grid.Row="1"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+
+            <StackPanel>
+
+                <TextBlock Name="TextBlockCim" 
+                           Text="Banki működés szimulálása"
+                           Width="360"
+                           FontSize="30"
+                           Foreground="White"
+                           HorizontalAlignment="Left"/>
+                <Separator Margin="0,0,0,30"
+                           Width="360"
+                           HorizontalAlignment="Left"/>
+
+
+                <Label Content="Bejelentkezés" 
+                       FontWeight="Bold" FontSize="30"
+                       Margin="0,0,0,5"
+                       Foreground="White"/>
+
+                <!--INPUTS START-->
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    
+                    <Label Content="Felhasználónév:" 
+                           MinWidth="180"
+                           FontSize="17"
+                           Foreground="White"/>
+                    
+                    <TextBox Name="TextBoxUserName" 
+                             MinWidth="220"
+                             FontSize="17"/>
+                    
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" 
+                            Margin="0,0,0,15">
+                    
+                    <Label Content="Jelszó:" 
+                           MinWidth="180"
+                           FontSize="17"
+                           Foreground="White"/>
+                    
+                    <PasswordBox Name="PasswordBoxPassword" 
+                                 MinWidth="220"
+                                 FontSize="17"/>
+                    
+                </StackPanel>
+                <!--INPUTS END-->
+
+                <!--BUTTONS START-->
+                <StackPanel Orientation="Horizontal">
+
+                    <Button Name="ButtonRegistrationWindow"
+                        Content="Regisztráció"
+                        Click="ButtonRegistrationWindow_Click"
+                        Foreground="White"
+                        FontSize="20"
+                        FontWeight="Medium"
+                        Margin="0,0,30,0">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                                <Setter Property="Background" Value="#2871cc"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#003f9a"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="150" Height="30"
+                                    CornerRadius="8"
+                                    Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+
+                    <Button Name="ButtonLoginWindow"
+                        Content="Bejelentkezés"
+                        Click="ButtonLoginWindow_Click"
+                        Foreground="White"
+                        FontSize="20"
+                        FontWeight="Medium">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                                <Setter Property="Background" Value="#2871cc"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#003f9a"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="150" Height="30"
+                                    CornerRadius="8"
+                                    Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+
+
+                </StackPanel>
+                <!--BUTTONS END-->
+                
+                
+            </StackPanel>
+            
+           
+
+        </StackPanel>
+        <!--LEFT SIDE WINDOW END-->
+
+        <!--RIGHT SIDE WINDOW START-->
+        <Grid Grid.Column="1"
+              Grid.Row="2"
+              Margin="160, -365, -610, 85"
+              Panel.ZIndex="-1">
+            <Grid.RenderTransform>
+                <RotateTransform Angle="50"/>
+            </Grid.RenderTransform>
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="-350, 250, -255, -250">
+
+                <StackPanel>
+                    <Border Width="700"
+                            Height="35"
+                            Background="#3dddc2"
+                            Margin="150,0,0,0"
+                            CornerRadius="20"/>
+
+                    <Border Width="700"
+                            Height="35"
+                            Background="#fcc5b6"
+                            Margin="0,15,0,0"
+                            CornerRadius="20"/>
+
+                    <Border Width="700"
+                            Height="35"
+                            Background="#383660"
+                            Margin="75,15,0,0"
+                            CornerRadius="20"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <Border Width="700"
+                            Height="35"
+                            Background="#3dddc2"
+                            Margin="150,0,0,0"
+                            CornerRadius="20"/>
+
+                    <Border Width="700"
+                            Height="35"
+                            Background="#fcc5b6"
+                            Margin="0,15,0,0"
+                            CornerRadius="20"/>
+
+                    <Border Width="700"
+                            Height="35"
+                            Background="#383660"
+                            Margin="75,15,0,0"
+                            CornerRadius="20"/>
+                </StackPanel>
+
+            </StackPanel>
+
+        </Grid>
+        <!--RIGHT SIDE WINDOW END-->
+
+    </Grid>
+    <!--MAIN GRID END-->
+    
+
+</Window>
